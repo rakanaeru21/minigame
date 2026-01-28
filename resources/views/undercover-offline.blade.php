@@ -11,15 +11,20 @@
             box-sizing: border-box;
         }
 
+        html {
+            overflow: hidden;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 15px;
             position: relative;
-            overflow-x: hidden;
+            overflow: hidden;
             background: #0a0e27;
         }
 
@@ -64,7 +69,7 @@
             background: rgba(15, 20, 45, 0.85);
             backdrop-filter: blur(10px);
             border-radius: 20px;
-            padding: 40px 35px;
+            padding: 30px 25px;
             box-shadow:
                 0 20px 60px rgba(0, 0, 0, 0.5),
                 inset 0 0 50px rgba(138, 100, 255, 0.05);
@@ -79,7 +84,7 @@
         h1 {
             font-size: 2.5rem;
             color: #ffffff;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 4px;
@@ -91,7 +96,7 @@
         .player-label {
             font-size: 1rem;
             color: #b8b8d1;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             font-weight: 400;
             letter-spacing: 0.5px;
         }
@@ -100,8 +105,8 @@
             background: rgba(138, 100, 255, 0.15);
             border: 2px solid rgba(138, 100, 255, 0.4);
             border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 30px;
+            padding: 18px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -124,19 +129,19 @@
         .roles-container {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            margin-bottom: 30px;
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
         .role-item {
             background: rgba(20, 25, 50, 0.6);
             border: 1px solid rgba(138, 100, 255, 0.3);
             border-radius: 15px;
-            padding: 20px;
+            padding: 18px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             transition: all 0.3s ease;
         }
 
@@ -211,7 +216,7 @@
             background: linear-gradient(135deg, #8a64ff 0%, #6b46d6 100%);
             color: white;
             border: none;
-            padding: 18px 60px;
+            padding: 16px 60px;
             font-size: 1.2rem;
             font-weight: 700;
             border-radius: 50px;
@@ -269,7 +274,7 @@
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-top: 15px;
+            margin-top: 12px;
             width: 100%;
         }
 
@@ -279,10 +284,100 @@
             color: #ffffff;
         }
 
+        /* Notification Modal */
+        .notification-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .notification-overlay.show {
+            display: flex;
+        }
+
+        .notification-modal {
+            background: rgba(15, 20, 45, 0.95);
+            border: 2px solid rgba(138, 100, 255, 0.5);
+            border-radius: 20px;
+            padding: 30px 35px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.8),
+                inset 0 0 30px rgba(138, 100, 255, 0.1);
+            animation: slideIn 0.3s ease;
+            text-align: center;
+        }
+
+        .notification-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            background: rgba(138, 100, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .notification-message {
+            color: #ffffff;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .notification-btn {
+            background: linear-gradient(135deg, #8a64ff 0%, #6b46d6 100%);
+            color: white;
+            border: none;
+            padding: 12px 40px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            box-shadow: 0 4px 15px rgba(138, 100, 255, 0.4);
+        }
+
+        .notification-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(138, 100, 255, 0.6);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
         /* Desktop Styles */
         @media (min-width: 768px) {
             .container {
-                max-width: 500px;
+                max-width: 800px;
                 padding: 50px 45px;
             }
 
@@ -305,18 +400,24 @@
                 font-size: 1.2rem;
             }
 
+            .roles-container {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+
             .role-item {
-                padding: 25px;
-                gap: 15px;
+                padding: 25px 20px;
+                gap: 12px;
             }
 
             .role-icon {
-                width: 70px;
-                height: 70px;
+                width: 65px;
+                height: 65px;
             }
 
             .role-name {
-                font-size: 1.1rem;
+                font-size: 1rem;
             }
 
             .counter-btn {
@@ -339,7 +440,7 @@
         /* Mobile Styles */
         @media (max-width: 600px) {
             .container {
-                padding: 35px 25px;
+                padding: 25px 20px;
             }
 
             h1 {
@@ -484,7 +585,25 @@
         </button>
     </div>
 
+    <!-- Notification Modal -->
+    <div class="notification-overlay" id="notificationOverlay" onclick="closeNotification()">
+        <div class="notification-modal" onclick="event.stopPropagation()">
+            <div class="notification-icon">⚠️</div>
+            <div class="notification-message" id="notificationMessage"></div>
+            <button class="notification-btn" onclick="closeNotification()">OK</button>
+        </div>
+    </div>
+
     <script>
+        function showNotification(message) {
+            document.getElementById('notificationMessage').textContent = message;
+            document.getElementById('notificationOverlay').classList.add('show');
+        }
+
+        function closeNotification() {
+            document.getElementById('notificationOverlay').classList.remove('show');
+        }
+
         function getTotalPlayers() {
             return parseInt(document.getElementById('total-players').textContent);
         }
@@ -563,7 +682,7 @@
             if (role === 'spy') {
                 const maxSpy = getMaxSpy();
                 if (count >= maxSpy) {
-                    alert(`Maksimal spy untuk ${totalPlayers} pemain adalah ${maxSpy}!`);
+                    showNotification(`Maksimal spy untuk ${totalPlayers} pemain adalah ${maxSpy}!`);
                     return;
                 }
 
@@ -571,7 +690,7 @@
                 const newSpy = count + 1;
                 const newCivilian = totalPlayers - newSpy - parseInt(document.getElementById('mrwhite-count').textContent);
                 if (newSpy === newCivilian) {
-                    alert('Jumlah spy tidak boleh sama dengan jumlah civilian!');
+                    showNotification('Jumlah spy tidak boleh sama dengan jumlah civilian!');
                     return;
                 }
             }
@@ -579,7 +698,7 @@
             if (role === 'mrwhite') {
                 const maxMrWhite = getMaxMrWhite();
                 if (count >= maxMrWhite) {
-                    alert(`Maksimal mr.white untuk ${totalPlayers} pemain adalah ${maxMrWhite}!`);
+                    showNotification(`Maksimal mr.white untuk ${totalPlayers} pemain adalah ${maxMrWhite}!`);
                     return;
                 }
 
@@ -587,13 +706,13 @@
                 const newMrwhite = count + 1;
                 const newCivilian = totalPlayers - spy - newMrwhite;
                 if (newMrwhite === newCivilian) {
-                    alert('Jumlah mr.white tidak boleh sama dengan jumlah civilian!');
+                    showNotification('Jumlah mr.white tidak boleh sama dengan jumlah civilian!');
                     return;
                 }
 
                 // Cek apakah spy akan sama dengan civilian setelah mr.white ditambah
                 if (spy === newCivilian) {
-                    alert('Jumlah spy tidak boleh sama dengan jumlah civilian!');
+                    showNotification('Jumlah spy tidak boleh sama dengan jumlah civilian!');
                     return;
                 }
             }
@@ -603,7 +722,7 @@
                 countElement.textContent = count + 1;
                 updateCivilian();
             } else {
-                alert('Tidak ada ruang untuk menambah role ini!');
+                showNotification('Tidak ada ruang untuk menambah role ini!');
             }
         }
 
@@ -625,7 +744,7 @@
                     const newSpy = count - 1;
                     const newCivilian = totalPlayers - newSpy - mrwhite;
                     if (newSpy === newCivilian && newSpy > 0) {
-                        alert('Jumlah spy tidak boleh sama dengan jumlah civilian!');
+                        showNotification('Jumlah spy tidak boleh sama dengan jumlah civilian!');
                         return;
                     }
                 }
@@ -635,13 +754,13 @@
                     const newMrwhite = count - 1;
                     const newCivilian = totalPlayers - spy - newMrwhite;
                     if (newMrwhite === newCivilian && newMrwhite > 0) {
-                        alert('Jumlah mr.white tidak boleh sama dengan jumlah civilian!');
+                        showNotification('Jumlah mr.white tidak boleh sama dengan jumlah civilian!');
                         return;
                     }
 
                     // Cek apakah spy akan sama dengan civilian setelah mr.white dikurangi
                     if (spy === newCivilian && spy > 0) {
-                        alert('Jumlah spy tidak boleh sama dengan jumlah civilian!');
+                        showNotification('Jumlah spy tidak boleh sama dengan jumlah civilian!');
                         return;
                     }
                 }
@@ -660,32 +779,32 @@
             const currentRoles = civilian + spy + mrwhite;
 
             if (currentRoles !== totalPlayers) {
-                alert(`Jumlah role (${currentRoles}) harus sama dengan total pemain (${totalPlayers})!`);
+                showNotification(`Jumlah role (${currentRoles}) harus sama dengan total pemain (${totalPlayers})!`);
                 return;
             }
 
             if (totalPlayers < 3) {
-                alert('Minimal 3 pemain untuk memulai permainan!');
+                showNotification('Minimal 3 pemain untuk memulai permainan!');
                 return;
             }
 
             if (spy === 0 && mrwhite === 0) {
-                alert('Harus ada minimal 1 spy atau 1 mr.white!');
+                showNotification('Harus ada minimal 1 spy atau 1 mr.white!');
                 return;
             }
 
             if (civilian < 1) {
-                alert('Harus ada minimal 1 civilian!');
+                showNotification('Harus ada minimal 1 civilian!');
                 return;
             }
 
             if (spy === civilian) {
-                alert('Jumlah spy tidak boleh sama dengan jumlah civilian!');
+                showNotification('Jumlah spy tidak boleh sama dengan jumlah civilian!');
                 return;
             }
 
             if (mrwhite === civilian && mrwhite > 0) {
-                alert('Jumlah mr.white tidak boleh sama dengan jumlah civilian!');
+                showNotification('Jumlah mr.white tidak boleh sama dengan jumlah civilian!');
                 return;
             }
 

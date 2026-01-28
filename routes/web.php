@@ -9,3 +9,7 @@ Route::get('/', function () {
 Route::get('/undercover/offline', function () {
     return view('undercover-offline');
 });
+
+Route::get('/undercover/play', function () {
+    return view('undercover-play');
+});

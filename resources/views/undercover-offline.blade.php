@@ -311,7 +311,7 @@
             padding: 30px 35px;
             max-width: 400px;
             width: 90%;
-            box-shadow: 
+            box-shadow:
                 0 20px 60px rgba(0, 0, 0, 0.8),
                 inset 0 0 30px rgba(138, 100, 255, 0.1);
             animation: slideIn 0.3s ease;

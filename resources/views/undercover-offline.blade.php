@@ -12,19 +12,18 @@
         }
 
         html {
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
-            height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
-            padding: 15px;
+            align-items: flex-start;
+            padding: 20px 15px;
             position: relative;
-            overflow: hidden;
             background: #0a0e27;
         }
 
@@ -374,7 +373,275 @@
             }
         }
 
-        /* Desktop Styles */
+        /* Very Small Mobile Styles */
+        @media (max-width: 360px) {
+            body {
+                padding: 10px 8px;
+            }
+
+            .container {
+                padding: 20px 15px;
+                border-radius: 15px;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+                letter-spacing: 2px;
+                margin-bottom: 6px;
+            }
+
+            .player-label {
+                font-size: 0.85rem;
+                margin-bottom: 10px;
+            }
+
+            .player-total-box {
+                padding: 12px;
+                gap: 10px;
+                flex-direction: column;
+            }
+
+            .player-total-label {
+                font-size: 0.9rem;
+            }
+
+            .player-total-counter {
+                gap: 15px;
+            }
+
+            .roles-container {
+                gap: 10px;
+            }
+
+            .role-item {
+                padding: 14px;
+                gap: 8px;
+            }
+
+            .role-icon {
+                width: 45px;
+                height: 45px;
+            }
+
+            .role-name {
+                font-size: 0.85rem;
+            }
+
+            .counter-btn {
+                width: 30px;
+                height: 30px;
+                font-size: 1.1rem;
+            }
+
+            .counter-value {
+                font-size: 1.2rem;
+                min-width: 22px;
+            }
+
+            .start-btn {
+                padding: 14px 40px;
+                font-size: 1rem;
+                letter-spacing: 1.5px;
+            }
+
+            .back-btn {
+                padding: 10px 25px;
+                font-size: 0.85rem;
+                margin-top: 10px;
+            }
+
+            .notification-modal {
+                padding: 25px 20px;
+                width: 95%;
+            }
+
+            .notification-icon {
+                width: 50px;
+                height: 50px;
+                margin-bottom: 15px;
+                font-size: 1.6rem;
+            }
+
+            .notification-message {
+                font-size: 0.95rem;
+                margin-bottom: 20px;
+            }
+
+            .notification-btn {
+                padding: 10px 35px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Small Mobile Styles */
+        @media (min-width: 361px) and (max-width: 480px) {
+            body {
+                padding: 15px 10px;
+            }
+
+            .container {
+                padding: 22px 18px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+                letter-spacing: 2.5px;
+            }
+
+            .player-label {
+                font-size: 0.9rem;
+                margin-bottom: 10px;
+            }
+
+            .player-total-box {
+                padding: 15px;
+                gap: 12px;
+            }
+
+            .player-total-label {
+                font-size: 0.95rem;
+            }
+
+            .role-item {
+                padding: 16px;
+            }
+
+            .role-icon {
+                width: 50px;
+                height: 50px;
+            }
+
+            .role-name {
+                font-size: 0.9rem;
+            }
+
+            .counter-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 1.2rem;
+            }
+
+            .counter-value {
+                font-size: 1.3rem;
+            }
+
+            .start-btn {
+                padding: 15px 45px;
+                font-size: 1.05rem;
+            }
+
+            .back-btn {
+                padding: 11px 28px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Medium Mobile / Phablet */
+        @media (min-width: 481px) and (max-width: 600px) {
+            .container {
+                padding: 25px 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+                letter-spacing: 3px;
+            }
+
+            .player-total-box {
+                padding: 18px;
+                gap: 15px;
+            }
+
+            .player-total-label {
+                font-size: 1rem;
+            }
+
+            .role-item {
+                padding: 18px;
+            }
+
+            .role-icon {
+                width: 55px;
+                height: 55px;
+            }
+
+            .role-name {
+                font-size: 0.95rem;
+            }
+
+            .counter-btn {
+                width: 34px;
+                height: 34px;
+                font-size: 1.25rem;
+            }
+
+            .counter-value {
+                font-size: 1.4rem;
+                min-width: 28px;
+            }
+
+            .start-btn {
+                padding: 16px 50px;
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Tablet Portrait */
+        @media (min-width: 601px) and (max-width: 767px) {
+            .container {
+                max-width: 550px;
+                padding: 35px 30px;
+            }
+
+            h1 {
+                font-size: 2.3rem;
+                letter-spacing: 4px;
+            }
+
+            .player-label {
+                font-size: 1.05rem;
+                margin-bottom: 15px;
+            }
+
+            .player-total-box {
+                padding: 20px;
+            }
+
+            .player-total-label {
+                font-size: 1.1rem;
+            }
+
+            .roles-container {
+                gap: 15px;
+            }
+
+            .role-item {
+                padding: 20px;
+            }
+
+            .role-icon {
+                width: 60px;
+                height: 60px;
+            }
+
+            .counter-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 1.3rem;
+            }
+
+            .counter-value {
+                font-size: 1.5rem;
+                min-width: 30px;
+            }
+
+            .start-btn {
+                padding: 18px 60px;
+                font-size: 1.15rem;
+            }
+        }
+
+        /* Tablet Landscape & Desktop */
         @media (min-width: 768px) {
             .container {
                 max-width: 800px;
@@ -437,53 +704,10 @@
             }
         }
 
-        /* Mobile Styles */
-        @media (max-width: 600px) {
+        /* Large Desktop */
+        @media (min-width: 1200px) {
             .container {
-                padding: 25px 20px;
-            }
-
-            h1 {
-                font-size: 2rem;
-                letter-spacing: 3px;
-            }
-
-            .player-total-box {
-                padding: 18px;
-                gap: 15px;
-            }
-
-            .player-total-label {
-                font-size: 1rem;
-            }
-
-            .role-item {
-                padding: 18px;
-            }
-
-            .role-icon {
-                width: 55px;
-                height: 55px;
-            }
-
-            .role-name {
-                font-size: 0.95rem;
-            }
-
-            .counter-btn {
-                width: 32px;
-                height: 32px;
-                font-size: 1.2rem;
-            }
-
-            .counter-value {
-                font-size: 1.3rem;
-                min-width: 25px;
-            }
-
-            .start-btn {
-                padding: 16px 50px;
-                font-size: 1.1rem;
+                max-width: 900px;
             }
         }
     </style>

@@ -12,7 +12,6 @@
         }
 
         html {
-            overflow-y: auto;
             overflow-x: hidden;
         }
 
@@ -21,8 +20,10 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             padding: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
             position: relative;
             background: #0a0e27;
         }
@@ -58,6 +59,18 @@
         @keyframes rain {
             0% { transform: translateY(0); }
             100% { transform: translateY(20px); }
+        }
+
+        /* Hide scrollbar for desktop */
+        @media (min-width: 769px) {
+            body::-webkit-scrollbar {
+                display: none;
+            }
+
+            body {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
         }
 
         .container {
@@ -326,6 +339,15 @@
         }
 
         @media (max-width: 768px) {
+            body {
+                align-items: flex-start;
+                padding: 15px;
+            }
+
+            .container {
+                margin: 0 auto;
+            }
+
             .cards-grid {
                 grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
                 gap: 10px;

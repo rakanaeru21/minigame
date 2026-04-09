@@ -13,10 +13,9 @@ Route::get('/undercover/offline', function () {
 });
 
 Route::get('/undercover/words', function () {
-    $words = DB::table('words')
-        ->select('id', 'kata1', 'kata2', 'created_at')
+    $words = DB::table('kata')
+        ->select('id', 'kata_1', 'kata_2')
         ->orderByDesc('id')
-        ->limit(20)
         ->get();
 
     return view('undercover-words', compact('words'));
@@ -37,12 +36,12 @@ Route::post('/undercover/words', function (Request $request) {
             ->withErrors(['kata1' => 'Kata tidak boleh sama.']);
     }
 
-    $alreadyUsed = DB::table('words')
+    $alreadyUsed = DB::table('kata')
         ->where(function ($query) use ($kata1, $kata2) {
-            $query->where('kata1', $kata1)
-                ->orWhere('kata2', $kata1)
-                ->orWhere('kata1', $kata2)
-                ->orWhere('kata2', $kata2);
+            $query->where('kata_1', $kata1)
+                ->orWhere('kata_2', $kata1)
+                ->orWhere('kata_1', $kata2)
+                ->orWhere('kata_2', $kata2);
         })
         ->exists();
 
@@ -52,25 +51,23 @@ Route::post('/undercover/words', function (Request $request) {
             ->withErrors(['kata1' => 'Kata telah digunakan.']);
     }
 
-    DB::table('words')->insert([
-        'kata1' => $kata1,
-        'kata2' => $kata2,
-        'created_at' => now(),
-        'updated_at' => now(),
+    DB::table('kata')->insert([
+        'kata_1' => $kata1,
+        'kata_2' => $kata2,
     ]);
 
     return redirect('/undercover/words')->with('success', 'Kata berhasil ditambahkan.');
 });
 
 Route::get('/undercover/play', function () {
-    $wordPairs = DB::table('words')
-        ->select('kata1', 'kata2')
+    $wordPairs = DB::table('kata')
+        ->select('kata_1', 'kata_2')
         ->inRandomOrder()
         ->get()
         ->map(function ($word) {
             return [
-                'kata1' => $word->kata1,
-                'kata2' => $word->kata2,
+                'kata1' => $word->kata_1,
+                'kata2' => $word->kata_2,
             ];
         })
         ->values();

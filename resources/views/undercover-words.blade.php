@@ -284,14 +284,14 @@
                 @csrf
                 <div class="form-grid">
                     <div>
-                        <label for="kata1">Kata Civilian</label>
+                        <label for="kata1">Kata 1</label>
                         <input type="text" id="kata1" name="kata1" value="{{ old('kata1') }}" placeholder="Contoh: APEL">
                         @error('kata1')
                             <div class="error">{{ $message }}</div>
                         @enderror
                     </div>
                     <div>
-                        <label for="kata2">Kata Spy</label>
+                        <label for="kata2">Kata 2</label>
                         <input type="text" id="kata2" name="kata2" value="{{ old('kata2') }}" placeholder="Contoh: JERUK">
                         @error('kata2')
                             <div class="error">{{ $message }}</div>

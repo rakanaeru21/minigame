@@ -120,6 +120,30 @@
             margin: 0;
         }
 
+        .name-input-wrap {
+            margin: 20px 0 10px;
+            text-align: left;
+        }
+
+        .name-input-label {
+            display: block;
+            font-size: 0.9rem;
+            color: #b8b8d1;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .name-warning {
+            display: none;
+            margin-top: 8px;
+            color: #ff9090;
+            font-size: 0.85rem;
+        }
+
+        .name-warning.show {
+            display: block;
+        }
+
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -229,6 +253,19 @@
             background: rgba(184, 184, 209, 0.1);
             border-color: rgba(184, 184, 209, 0.5);
             color: #ffffff;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .action-buttons .btn {
+            flex: 1;
+            margin-top: 0;
+            min-width: 180px;
         }
 
         /* Modal */
@@ -378,6 +415,12 @@
                 <p>🎴 Setiap pemain memilih satu kartu. Setelah memilih, pemain akan melihat kata mereka. Jangan beritahu pemain lain!</p>
             </div>
 
+            <div class="name-input-wrap">
+                <label class="name-input-label" for="player-name">Nama pemain yang sedang memilih kartu</label>
+                <input type="text" id="player-name" placeholder="Contoh: Budi" maxlength="30" autocomplete="off">
+                <div class="name-warning" id="name-warning">Masukkan nama pemain dulu sebelum memilih kartu.</div>
+            </div>
+
             <div class="cards-grid" id="cards-grid"></div>
         </div>
 
@@ -392,9 +435,15 @@
             <div id="game-result" class="game-result" style="display: none;"></div>
         </div>
 
-        <button class="btn btn-secondary" onclick="location.href='/undercover/offline'">
-            Kembali ke Pengaturan
-        </button>
+        <div class="action-buttons">
+            <button class="btn btn-primary" onclick="playAgain()">
+                Main Lagi
+            </button>
+
+            <button class="btn btn-secondary" onclick="location.href='/undercover/offline'">
+                Kembali ke Pengaturan
+            </button>
+        </div>
     </div>
 
     <!-- Modal untuk menampilkan kata -->
@@ -425,15 +474,7 @@
         const totalMrWhite = parseInt(urlParams.get('mrwhite')) || 0;
         const totalPlayers = totalCivilian + totalSpy + totalMrWhite;
 
-        const wordPairs = [
-            { kata1: 'APEL', kata2: 'JERUK' },
-            { kata1: 'KUCING', kata2: 'ANJING' },
-            { kata1: 'MOBIL', kata2: 'MOTOR' },
-            { kata1: 'BUKU', kata2: 'MAJALAH' },
-            { kata1: 'KOPI', kata2: 'TEH' },
-            { kata1: 'NASI', kata2: 'ROTI' },
-            { kata1: 'PENSIL', kata2: 'PULPEN' }
-        ];
+        const wordPairs = @json($wordPairs);
 
         const selectedPair = wordPairs[Math.floor(Math.random() * wordPairs.length)];
         const civilianWord = selectedPair.kata1;
@@ -469,7 +510,7 @@
 
                 cardEl.innerHTML = `
                     <div class="card-number">#${index + 1}</div>
-                    <div class="card-status">${card.picked ? 'Dipilih' : 'Tersedia'}</div>
+                    <div class="card-status">${card.picked ? `Dipilih${card.playerName ? `: ${card.playerName}` : ''}` : 'Tersedia'}</div>
                 `;
 
                 if (!card.picked) {
@@ -480,8 +521,30 @@
             });
         }
 
+        function getActivePlayerName() {
+            const input = document.getElementById('player-name');
+            return input.value.trim();
+        }
+
+        function showNameWarning() {
+            document.getElementById('name-warning').classList.add('show');
+        }
+
+        function hideNameWarning() {
+            document.getElementById('name-warning').classList.remove('show');
+        }
+
         function pickCard(index) {
+            const playerName = getActivePlayerName();
+            if (!playerName) {
+                showNameWarning();
+                document.getElementById('player-name').focus();
+                return;
+            }
+
+            hideNameWarning();
             cards[index].picked = true;
+            cards[index].playerName = playerName;
             pickedCount++;
 
             const card = cards[index];
@@ -511,6 +574,10 @@
                 document.getElementById('pick-phase').style.display = 'none';
                 document.getElementById('voting-phase').style.display = 'block';
                 renderVotingCards();
+            } else {
+                const input = document.getElementById('player-name');
+                input.value = '';
+                input.focus();
             }
         }
 
@@ -526,9 +593,6 @@
                 let content = `<div class="card-number">#${index + 1}</div>`;
                 if (card.revealed) {
                     content += `<div class="card-status">${card.role === 'civilian' ? 'CIVILIAN' : card.role === 'spy' ? 'SPY' : 'MR. WHITE'}</div>`;
-                    if (card.word) {
-                        content += `<div class="card-word">${card.word}</div>`;
-                    }
                 } else {
                     content += `<div class="card-status">Klik untuk Buka</div>`;
                 }
@@ -564,13 +628,12 @@
             if (guess === civilianWord) {
                 resultDiv.innerHTML = `
                     <div class="result-title">🎉 MR. WHITE MENANG! 🎉</div>
-                    <div class="result-text">Mr. White berhasil menebak kata civilian: <strong>${civilianWord}</strong></div>
+                    <div class="result-text">Mr. White berhasil menebak kata civilian.</div>
                 `;
             } else {
                 resultDiv.innerHTML = `
                     <div class="result-title">❌ MR. WHITE KALAH ❌</div>
-                    <div class="result-text">Tebakan: <strong>${guess}</strong></div>
-                    <div class="result-text">Kata yang benar: <strong>${civilianWord}</strong></div>
+                    <div class="result-text">Kata yang ditebak salah.</div>
                 `;
             }
             resultDiv.style.display = 'block';
@@ -580,30 +643,52 @@
         function checkGameEnd() {
             const revealedCivilian = cards.filter(c => c.revealed && c.role === 'civilian').length;
             const revealedSpy = cards.filter(c => c.revealed && c.role === 'spy').length;
+            const revealedMrWhite = cards.filter(c => c.revealed && c.role === 'mrwhite').length;
             const totalRevealedSpy = cards.filter(c => c.role === 'spy').length;
+            const totalRevealedMrWhite = cards.filter(c => c.role === 'mrwhite').length;
             const remainingCivilian = totalCivilian - revealedCivilian;
             const remainingSpy = totalSpy - revealedSpy;
 
             const resultDiv = document.getElementById('game-result');
 
+            // Logic baru: jika sisa civilian tinggal 1 dan spy masih ada,
+            // maka spy otomatis menang (contoh 1v1 atau 1v2).
+            if (remainingCivilian === 1 && remainingSpy >= 1) {
+                resultDiv.innerHTML = `
+                    <div class="result-title">🎭 SPY MENANG! 🎭</div>
+                    <div class="result-text">Sisa pemain: 1 Civilian vs ${remainingSpy} Spy.</div>
+                `;
+                resultDiv.style.display = 'block';
+                return;
+            }
+
+            // Jangan tampilkan hasil terlalu cepat: tunggu semua Spy/Undercover
+            // dan Mr. White (jika ada) sudah terbuka.
+            const allSpyFound = revealedSpy === totalRevealedSpy;
+            const allMrWhiteFound = revealedMrWhite === totalRevealedMrWhite;
+            if (!allSpyFound || !allMrWhiteFound) {
+                resultDiv.style.display = 'none';
+                return;
+            }
+
             if (revealedSpy === totalRevealedSpy) {
                 resultDiv.innerHTML = `
                     <div class="result-title">🎉 CIVILIAN MENANG! 🎉</div>
                     <div class="result-text">Semua spy telah ditemukan!</div>
-                    <div class="result-text">Kata Civilian: <strong>${civilianWord}</strong></div>
-                    <div class="result-text">Kata Spy: <strong>${spyWord}</strong></div>
-                `;
-                resultDiv.style.display = 'block';
-            } else if (remainingCivilian <= remainingSpy && remainingCivilian > 0) {
-                resultDiv.innerHTML = `
-                    <div class="result-title">🎭 SPY MENANG! 🎭</div>
-                    <div class="result-text">Jumlah civilian tersisa (${remainingCivilian}) ≤ spy tersisa (${remainingSpy})</div>
-                    <div class="result-text">Kata Civilian: <strong>${civilianWord}</strong></div>
-                    <div class="result-text">Kata Spy: <strong>${spyWord}</strong></div>
                 `;
                 resultDiv.style.display = 'block';
             }
         }
+
+        function playAgain() {
+            window.location.href = `/undercover/play?civilian=${totalCivilian}&spy=${totalSpy}&mrwhite=${totalMrWhite}`;
+        }
+
+        document.getElementById('player-name').addEventListener('input', () => {
+            if (getActivePlayerName()) {
+                hideNameWarning();
+            }
+        });
 
         renderCards();
     </script>

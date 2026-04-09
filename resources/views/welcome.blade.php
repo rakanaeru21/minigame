@@ -169,6 +169,34 @@
             z-index: 1;
         }
 
+        .floating-word-btn {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            z-index: 5;
+            padding: 14px 20px;
+            border-radius: 999px;
+            border: 1px solid rgba(138, 100, 255, 0.45);
+            background: linear-gradient(135deg, rgba(138, 100, 255, 0.95) 0%, rgba(107, 70, 214, 0.95) 100%);
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 24px rgba(138, 100, 255, 0.35);
+            animation: floatAction 3.5s ease-in-out infinite;
+        }
+
+        .floating-word-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(138, 100, 255, 0.5);
+        }
+
+        @keyframes floatAction {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
         /* Glow effect on hover */
         .container:hover {
             box-shadow:
@@ -359,5 +387,7 @@
             </button>
         </div>
     </div>
+
+    <a href="/undercover/words" class="floating-word-btn">Tambah Kata</a>
 </body>
 </html>

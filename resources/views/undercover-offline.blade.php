@@ -14,6 +14,12 @@
         html {
             overflow-x: hidden;
             overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        html::-webkit-scrollbar {
+            display: none;
         }
 
         body {
@@ -136,11 +142,11 @@
             background: rgba(20, 25, 50, 0.6);
             border: 1px solid rgba(138, 100, 255, 0.3);
             border-radius: 15px;
-            padding: 18px;
+            padding: 14px 18px;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
-            gap: 10px;
+            gap: 14px;
             transition: all 0.3s ease;
         }
 
@@ -150,9 +156,37 @@
             box-shadow: 0 4px 20px rgba(138, 100, 255, 0.2);
         }
 
+        .role-item.role-civilian {
+            border-color: rgba(100, 180, 255, 0.35);
+        }
+
+        .role-item.role-civilian:hover {
+            border-color: rgba(100, 180, 255, 0.6);
+            box-shadow: 0 4px 20px rgba(100, 180, 255, 0.15);
+        }
+
+        .role-item.role-spy {
+            border-color: rgba(255, 100, 100, 0.35);
+        }
+
+        .role-item.role-spy:hover {
+            border-color: rgba(255, 100, 100, 0.6);
+            box-shadow: 0 4px 20px rgba(255, 100, 100, 0.15);
+        }
+
+        .role-item.role-mrwhite {
+            border-color: rgba(200, 200, 220, 0.35);
+        }
+
+        .role-item.role-mrwhite:hover {
+            border-color: rgba(200, 200, 220, 0.6);
+            box-shadow: 0 4px 20px rgba(200, 200, 220, 0.15);
+        }
+
         .role-icon {
-            width: 60px;
-            height: 60px;
+            width: 46px;
+            height: 46px;
+            flex-shrink: 0;
         }
 
         .role-icon svg {
@@ -161,19 +195,25 @@
             filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.2));
         }
 
+        .role-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 4px;
+        }
+
         .role-name {
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: #ffffff;
             font-weight: 600;
-            text-transform: capitalize;
             letter-spacing: 0.5px;
         }
 
         .role-counter {
             display: flex;
             align-items: center;
-            gap: 20px;
-            margin-top: 5px;
+            gap: 14px;
         }
 
         .counter-btn {
@@ -196,11 +236,10 @@
         .counter-btn:hover {
             background: rgba(138, 100, 255, 0.4);
             border-color: rgba(138, 100, 255, 0.6);
-            transform: scale(1.05);
         }
 
         .counter-btn:active {
-            transform: scale(0.95);
+            background: rgba(138, 100, 255, 0.55);
         }
 
         .counter-value {
@@ -250,7 +289,6 @@
         }
 
         .start-btn:hover {
-            transform: translateY(-2px);
             box-shadow:
                 0 6px 25px rgba(138, 100, 255, 0.6),
                 inset 0 0 30px rgba(255, 255, 255, 0.15);
@@ -277,10 +315,58 @@
             width: 100%;
         }
 
+        .word-btn {
+            background: rgba(138, 100, 255, 0.14);
+            color: #ffffff;
+            border: 1px solid rgba(138, 100, 255, 0.35);
+            padding: 12px 30px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 12px;
+            width: 100%;
+        }
+
+        .word-btn:hover {
+            background: rgba(138, 100, 255, 0.24);
+            border-color: rgba(138, 100, 255, 0.55);
+        }
+
         .back-btn:hover {
             background: rgba(184, 184, 209, 0.1);
             border-color: rgba(184, 184, 209, 0.5);
             color: #ffffff;
+        }
+
+        .floating-word-btn {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            z-index: 5;
+            padding: 14px 18px;
+            border-radius: 999px;
+            border: 1px solid rgba(138, 100, 255, 0.45);
+            background: linear-gradient(135deg, rgba(138, 100, 255, 0.95) 0%, rgba(107, 70, 214, 0.95) 100%);
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 24px rgba(138, 100, 255, 0.35);
+            animation: floatAction 3.5s ease-in-out infinite;
+        }
+
+        .floating-word-btn:hover {
+            box-shadow: 0 10px 28px rgba(138, 100, 255, 0.5);
+        }
+
+        @keyframes floatAction {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
         }
 
         /* Notification Modal */
@@ -353,7 +439,6 @@
         }
 
         .notification-btn:hover {
-            transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(138, 100, 255, 0.6);
         }
 
@@ -414,27 +499,27 @@
             }
 
             .role-item {
-                padding: 14px;
-                gap: 8px;
+                padding: 12px 14px;
+                gap: 10px;
             }
 
             .role-icon {
-                width: 45px;
-                height: 45px;
+                width: 38px;
+                height: 38px;
             }
 
             .role-name {
-                font-size: 0.85rem;
+                font-size: 0.82rem;
             }
 
             .counter-btn {
-                width: 30px;
-                height: 30px;
-                font-size: 1.1rem;
+                width: 28px;
+                height: 28px;
+                font-size: 1rem;
             }
 
             .counter-value {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
                 min-width: 22px;
             }
 
@@ -503,26 +588,27 @@
             }
 
             .role-item {
-                padding: 16px;
+                padding: 12px 16px;
+                gap: 12px;
             }
 
             .role-icon {
-                width: 50px;
-                height: 50px;
+                width: 42px;
+                height: 42px;
             }
 
             .role-name {
-                font-size: 0.9rem;
+                font-size: 0.88rem;
             }
 
             .counter-btn {
-                width: 32px;
-                height: 32px;
-                font-size: 1.2rem;
+                width: 30px;
+                height: 30px;
+                font-size: 1.1rem;
             }
 
             .counter-value {
-                font-size: 1.3rem;
+                font-size: 1.2rem;
             }
 
             .start-btn {
@@ -557,12 +643,13 @@
             }
 
             .role-item {
-                padding: 18px;
+                padding: 14px 18px;
+                gap: 14px;
             }
 
             .role-icon {
-                width: 55px;
-                height: 55px;
+                width: 48px;
+                height: 48px;
             }
 
             .role-name {
@@ -616,12 +703,13 @@
             }
 
             .role-item {
-                padding: 20px;
+                padding: 16px 20px;
+                gap: 15px;
             }
 
             .role-icon {
-                width: 60px;
-                height: 60px;
+                width: 52px;
+                height: 52px;
             }
 
             .counter-btn {
@@ -674,8 +762,14 @@
             }
 
             .role-item {
+                flex-direction: column;
+                align-items: center;
                 padding: 25px 20px;
                 gap: 12px;
+            }
+
+            .role-info {
+                align-items: center;
             }
 
             .role-icon {
@@ -728,74 +822,71 @@
 
         <div class="roles-container">
             <!-- Civilian Role -->
-            <div class="role-item">
+            <div class="role-item role-civilian">
                 <div class="role-icon">
                     <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <ellipse cx="100" cy="45" rx="70" ry="12" fill="#ffffff"/>
-                        <rect x="60" y="45" width="80" height="25" rx="5" fill="#ffffff"/>
-                        <rect x="50" y="85" width="45" height="25" rx="12" fill="#1a1a1a"/>
-                        <rect x="105" y="85" width="45" height="25" rx="12" fill="#1a1a1a"/>
-                        <rect x="95" y="92" width="10" height="8" fill="#ffffff"/>
-                        <circle cx="100" cy="100" r="55" fill="#ffffff" opacity="0.1"/>
-                        <path d="M85 130 L100 160 L115 130 Z" fill="#ffffff"/>
-                        <rect x="75" y="130" width="50" height="15" fill="#ffffff"/>
-                        <path d="M60 145 L60 180 L85 175 L85 145 Z" fill="#ffffff"/>
-                        <path d="M140 145 L140 180 L115 175 L115 145 Z" fill="#ffffff"/>
+                        <circle cx="100" cy="60" r="30" fill="#64b4ff"/>
+                        <circle cx="88" cy="55" r="4" fill="#1a1a2e"/>
+                        <circle cx="112" cy="55" r="4" fill="#1a1a2e"/>
+                        <path d="M92 68 Q100 76 108 68" stroke="#1a1a2e" stroke-width="3" fill="none" stroke-linecap="round"/>
+                        <path d="M60 150 Q60 100 100 95 Q140 100 140 150" fill="#64b4ff"/>
+                        <circle cx="100" cy="100" r="65" stroke="#64b4ff" stroke-width="2" fill="none" opacity="0.2"/>
                     </svg>
                 </div>
-                <div class="role-name">Civilian (Warga)</div>
-                <div class="role-counter">
-                    <button class="counter-btn" onclick="decreaseRole('civilian')">−</button>
-                    <span class="counter-value" id="civilian-count">2</span>
-                    <button class="counter-btn" onclick="increaseRole('civilian')">+</button>
+                <div class="role-info">
+                    <div class="role-name">Civilian (Warga)</div>
+                    <div class="role-counter">
+                        <button class="counter-btn" onclick="decreaseRole('civilian')">−</button>
+                        <span class="counter-value" id="civilian-count">2</span>
+                        <button class="counter-btn" onclick="increaseRole('civilian')">+</button>
+                    </div>
                 </div>
             </div>
 
             <!-- Spy Role -->
-            <div class="role-item">
+            <div class="role-item role-spy">
                 <div class="role-icon">
                     <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <ellipse cx="100" cy="45" rx="70" ry="12" fill="#ffffff"/>
-                        <rect x="60" y="45" width="80" height="25" rx="5" fill="#ffffff"/>
-                        <rect x="50" y="85" width="45" height="25" rx="12" fill="#1a1a1a"/>
-                        <rect x="105" y="85" width="45" height="25" rx="12" fill="#1a1a1a"/>
-                        <rect x="95" y="92" width="10" height="8" fill="#ffffff"/>
-                        <circle cx="100" cy="100" r="55" fill="#ffffff" opacity="0.1"/>
-                        <path d="M85 130 L100 160 L115 130 Z" fill="#ffffff"/>
-                        <rect x="75" y="130" width="50" height="15" fill="#ffffff"/>
-                        <path d="M60 145 L60 180 L85 175 L85 145 Z" fill="#ffffff"/>
-                        <path d="M140 145 L140 180 L115 175 L115 145 Z" fill="#ffffff"/>
+                        <circle cx="100" cy="60" r="30" fill="#ff6464"/>
+                        <rect x="65" y="50" width="70" height="16" rx="8" fill="#1a1a2e" opacity="0.85"/>
+                        <circle cx="88" cy="58" r="3" fill="#ff6464"/>
+                        <circle cx="112" cy="58" r="3" fill="#ff6464"/>
+                        <path d="M95 72 L100 70 L105 72" stroke="#1a1a2e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                        <path d="M60 150 Q60 100 100 95 Q140 100 140 150" fill="#ff6464"/>
+                        <path d="M90 120 L100 145 L110 120" fill="#1a1a2e" opacity="0.6"/>
+                        <circle cx="100" cy="100" r="65" stroke="#ff6464" stroke-width="2" fill="none" opacity="0.2"/>
                     </svg>
                 </div>
-                <div class="role-name">spy</div>
-                <div class="role-counter">
-                    <button class="counter-btn" onclick="decreaseRole('spy')">−</button>
-                    <span class="counter-value" id="spy-count">1</span>
-                    <button class="counter-btn" onclick="increaseRole('spy')">+</button>
+                <div class="role-info">
+                    <div class="role-name">Spy (Penyusup)</div>
+                    <div class="role-counter">
+                        <button class="counter-btn" onclick="decreaseRole('spy')">−</button>
+                        <span class="counter-value" id="spy-count">1</span>
+                        <button class="counter-btn" onclick="increaseRole('spy')">+</button>
+                    </div>
                 </div>
             </div>
 
             <!-- Mr. White Role -->
-            <div class="role-item">
+            <div class="role-item role-mrwhite">
                 <div class="role-icon">
                     <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <ellipse cx="100" cy="45" rx="70" ry="12" fill="#ffffff"/>
-                        <rect x="60" y="45" width="80" height="25" rx="5" fill="#ffffff"/>
-                        <rect x="50" y="85" width="45" height="25" rx="12" fill="#1a1a1a"/>
-                        <rect x="105" y="85" width="45" height="25" rx="12" fill="#1a1a1a"/>
-                        <rect x="95" y="92" width="10" height="8" fill="#ffffff"/>
-                        <circle cx="100" cy="100" r="55" fill="#ffffff" opacity="0.1"/>
-                        <path d="M85 130 L100 160 L115 130 Z" fill="#ffffff"/>
-                        <rect x="75" y="130" width="50" height="15" fill="#ffffff"/>
-                        <path d="M60 145 L60 180 L85 175 L85 145 Z" fill="#ffffff"/>
-                        <path d="M140 145 L140 180 L115 175 L115 145 Z" fill="#ffffff"/>
+                        <circle cx="100" cy="60" r="30" fill="#e0e0ee"/>
+                        <circle cx="88" cy="55" r="4" fill="#1a1a2e"/>
+                        <circle cx="112" cy="55" r="4" fill="#1a1a2e"/>
+                        <path d="M90 70 L110 70" stroke="#1a1a2e" stroke-width="2.5" stroke-linecap="round"/>
+                        <text x="100" y="48" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a2e">?</text>
+                        <path d="M60 150 Q60 100 100 95 Q140 100 140 150" fill="#e0e0ee"/>
+                        <circle cx="100" cy="100" r="65" stroke="#e0e0ee" stroke-width="2" fill="none" opacity="0.2"/>
                     </svg>
                 </div>
-                <div class="role-name">mr.white</div>
-                <div class="role-counter">
-                    <button class="counter-btn" onclick="decreaseRole('mrwhite')">−</button>
-                    <span class="counter-value" id="mrwhite-count">0</span>
-                    <button class="counter-btn" onclick="increaseRole('mrwhite')">+</button>
+                <div class="role-info">
+                    <div class="role-name">Mr. White</div>
+                    <div class="role-counter">
+                        <button class="counter-btn" onclick="decreaseRole('mrwhite')">−</button>
+                        <span class="counter-value" id="mrwhite-count">0</span>
+                        <button class="counter-btn" onclick="increaseRole('mrwhite')">+</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -808,6 +899,8 @@
             Kembali
         </button>
     </div>
+
+    <a href="/undercover/words" class="floating-word-btn">Tambah Kata</a>
 
     <!-- Notification Modal -->
     <div class="notification-overlay" id="notificationOverlay" onclick="closeNotification()">
